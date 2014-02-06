@@ -3,18 +3,19 @@
 # This will add the gem to your local gemset
 require 'sqlite3'
 
-# 2. From the command line `createdb YOUR_DATABASE_NAME`
+# 2. Simply running the command on line 9 creates a database in
+# your working directory
 
 # 3. Set up a connection to the database you have created
-postgres = PG.connect( dbname: 'YOUR_DATABASE_NAME' )
+sqlite3 = SQLite3::Database.new 'sqlite.db'
 
 
 # 4. Ruby your SQL commands in ruby
 
 # Drop the table if it exist so we can run create table over and over
-postgres.exec( "drop table students" )
+sqlite3.execute( "drop table students" )
 # Create a table: Students
-postgres.exec( "
+sqlite3.execute( "
 create table students
 (
 lastname  varchar(255),
@@ -25,9 +26,6 @@ phase     int
   ")
 
 # 5 Insert some data into your database
-postgres.exec( "
+sqlite3.execute( "
 insert into students values ('Lubaway', 'Topher', 'Fence Lizard', 14);
-  ")
-postgres.exec( "
-insert into students values ('Abushadi', 'Sherif', 'Fence Lizard', 14);
   ")
